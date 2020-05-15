@@ -1,6 +1,7 @@
 <?php
 
 require('classes/Animal.php');
+require('classes/Provision.php');
 require('classes/Coca.php');
 require('classes/Eau.php');
 require('classes/Pasteque.php');

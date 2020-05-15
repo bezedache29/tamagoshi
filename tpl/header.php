@@ -25,4 +25,4 @@
         </div>
     </nav>
 
-    <pre><?php //var_dump($_SESSION) ?></pre>
+    <pre><?php //print_r($_SESSION) ?></pre>
