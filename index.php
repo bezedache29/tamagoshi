@@ -41,6 +41,9 @@ include('tpl/header.php');
                         <div class="card-header">
                             <h5>
                                 <?= $animal->getNom() ?> (<?= $animal->getAge() ?>)
+                                <?php if(!$animal->estVivant()) : ?>
+                                    - Décédé
+                                <?php endif; ?>
                             </h5>
                         </div>
                         <div class="card-body">
@@ -87,7 +90,7 @@ include('tpl/header.php');
                             </div>
                             
                             
-                            
+                            <?php if($animal->estVivant()): ?>
                             <div class="mt-4">
                                 <?php if(count($_SESSION['provisions']) > 0): ?>
                                     <a href="action_animal_nourrir.php?id=<?= $id ?>" class="btn btn-sm btn-dark">Nourrir (+1)</a>
@@ -95,6 +98,7 @@ include('tpl/header.php');
                                 <a href="action_animal_soigner.php?id=<?= $id ?>" class="btn btn-sm btn-dark">Soigner (+<?= NB_ACTIONS_SOIGNER ?>)</a>
                                 <a href="action_animal_caresser.php?id=<?= $id ?>" class="btn btn-sm btn-dark">Caresser (+<?= NB_ACTIONS_CARESSER ?>)</a>
                             </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

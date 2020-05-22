@@ -11,14 +11,12 @@ class Animal
     private $sante = 100;
     private $nom;
     private $age = 0;
+    private $nb_enfants = 0;
     
     function __construct($nom)
     {
         $this->nom = $nom;
     }
-
-
-
 
     /**
      * Ecrire les accesseurs
@@ -53,8 +51,11 @@ class Animal
         /**
          * Code à écrire
          */
-
-        $this->verifieEtat();
+        if($this->estVivant()) {
+            $this->sante += $points;
+            
+            $this->verifieEtat();
+        }
     }
 
     public function caresser($points)
@@ -62,8 +63,12 @@ class Animal
         /**
          * Code à écrire
          */
+        if($this->estVivant()) {
+            $this->humeur += $points;
 
-        $this->verifieEtat();
+            $this->verifieEtat();
+        }
+        
     }
 
     public function nourrir($provision)
@@ -71,12 +76,19 @@ class Animal
         /**
          * Code à écrire
          */
-        $this->faim += $provision->getImpactFaim();
-        $this->soif += $provision->getImpactSoif();
-        $this->sante += $provision->getImpactSante();
-        $this->humeur += $provision->getImpactHumeur();
+        if($this->estVivant()) {
+            $this->faim += $provision->getImpactFaim();
+            $this->soif += $provision->getImpactSoif();
+            $this->sante += $provision->getImpactSante();
+            $this->humeur += $provision->getImpactHumeur();
 
-        $this->verifieEtat();
+            $this->verifieEtat();
+        }
+    }
+
+    public function estVivant() {
+        // Si santé superieur a 0, il est vivant
+        return $this->sante > 0;
     }
 
     protected function verifieEtat()
@@ -135,5 +147,17 @@ class Animal
         }
 
         $this->verifieEtat();
+        $this->essayerCreerEnfant();
+    }
+
+    protected function essayerCreerEnfant() {
+        if($this->age > 10) {
+            $points = random_int(1, 5);
+            if($points == 1) {
+                $this->nb_enfants++;
+                $animal = new Animal("Fils " . $this->$nb_enfants . " de " . $this->nom);
+                $_SESSION['animaux'][] = $animal;
+            }
+        }
     }
 }
